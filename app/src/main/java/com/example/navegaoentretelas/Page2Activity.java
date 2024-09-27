@@ -1,5 +1,7 @@
 package com.example.navegaoentretelas;
 
+import static java.lang.Integer.parseInt;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -26,10 +28,11 @@ public class Page2Activity extends AppCompatActivity {
             return insets;
         });
 
-        Intent in = getIntent();
-        String vl_recebido = in.getStringExtra("vl_enviado");
-        TextView text2 = findViewById(R.id.textnum);
-        text2.setText(vl_recebido + "");
+        Intent go = getIntent();
+
+        num = go.getIntExtra("num", num);
+        TextView num2Value = findViewById(R.id.textnum);
+        num2Value.setText(num + "");
     }
 
     public void updateNum(){
@@ -59,12 +62,24 @@ public class Page2Activity extends AppCompatActivity {
 
     public void changeBgto3(View view) {
         View rootView = findViewById(android.R.id.content); // Obtém a View raiz
-        rootView.setBackgroundColor(Color.parseColor("#3F51B5"));
+        rootView.setBackgroundColor(Color.parseColor("#00BCD4"));
     }
 
     public void returnPage(View view) {
         Intent in = new Intent(Page2Activity.this, MainActivity.class);
-        in.putExtra("valor",num);
+        TextView num2 = findViewById(R.id.textnum);
+        String x = num2.getText().toString();
+        num = parseInt(String.valueOf(x));
+        in.putExtra("num2", num);
+        startActivity(in);
+    }
+
+    public void nextPage(View view) {
+        Intent in = new Intent(Page2Activity.this, Page3Activity.class);
+        TextView numValue = findViewById(R.id.textnum);
+        String x = numValue.getText().toString();
+        num = parseInt(String.valueOf(x));
+        in.putExtra("num", num);
         startActivity(in);
     }
 }

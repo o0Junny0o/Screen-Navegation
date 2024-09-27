@@ -1,5 +1,7 @@
 package com.example.navegaoentretelas;
 
+import static java.lang.Integer.parseInt;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -28,10 +30,11 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        Intent in = getIntent();
-        int vl_recebido = Integer.parseInt(in.getStringExtra("valor"));
-        num = vl_recebido;
-        updateNum();
+        Intent go = getIntent();
+
+        num = go.getIntExtra("num2", num);
+        TextView numvalue = findViewById(R.id.textnum);
+        numvalue.setText(num + "");
     }
 
     public void updateNum(){
@@ -62,12 +65,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void changeBgto3(View view) {
         View rootView = findViewById(android.R.id.content); // Obtém a View raiz
-        rootView.setBackgroundColor(Color.parseColor("#00BCD4"));
+        rootView.setBackgroundColor(Color.parseColor("#3F51B5"));
     }
 
     public void nextPage(View view) {
         Intent in = new Intent(MainActivity.this, Page2Activity.class);
-        in.putExtra("valor",num);
+        TextView numValue = findViewById(R.id.textnum);
+        String x = numValue.getText().toString();
+        num = parseInt(String.valueOf(x));
+        in.putExtra("num", num);
         startActivity(in);
     }
 }
